@@ -1,4 +1,4 @@
-# TEMPO APP 
+# TEMPO APP :sun_with_face: :open_umbrella: :zap: :snowman:
 
 ## Objetivo
 
