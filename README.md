@@ -1,4 +1,4 @@
-# TEMPO APP 💪
+# TEMPO APP 
 
 ## Objetivo
 
@@ -8,5 +8,5 @@ as imagens variam de acordo com a condição climática atual da cidade pesquisa
 
 
 
-![Finished App](https://github.com/AlexPauloVieira/WeatherApp/AppGif.gif)
+![Finished App](https://github.com/AlexPauloVieira/WeatherApp/blob/master/AppGif.gif)
 
