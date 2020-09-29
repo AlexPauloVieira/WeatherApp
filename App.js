@@ -1,3 +1,4 @@
+import { Chivo_400Regular } from '@expo-google-fonts/dev';
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, ImageBackground, ActivityIndicator } from 'react-native';
@@ -76,7 +77,17 @@ export default class App extends Component {
                       {location}
                     </Text>
                     <Text style={[styles.smallText, styles.textStyle]}>
-                      {weather}
+                      {(
+                        weather === 'Showers' ? 'Olha a chuva' :
+                          weather === 'Clear' ? 'Deu Praia' :
+                            weather === 'Hail' ? 'Olha a neblina' :
+                              weather === 'Heavy Cloud' ? 'Nuvens Pesadas' :
+                                weather === 'Light Cloud' ? 'Nuvenzinhas de leve' :
+                                  weather === 'Heavy Rain' ? 'Que chovona hein?!?' :
+                                    weather === 'Light Rain' ? 'Olha a garoa!' :
+                                      weather === 'Sleet' ? 'Ta chovendo gelo, parça!' :
+                                        weather === 'Snow' ? 'Ta nevandooooo!!!' : 'Cuidado com os raios'
+                      )}
                     </Text>
                     <Text style={[styles.largeText, styles.textStyle]}>
                       {`${Math.round(temperature)}°`}
@@ -103,7 +114,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   componentsContainer: {
-    paddingVertical: 150
+    paddingVertical: 130
   },
   textStyle: {
     textAlign: 'center',
