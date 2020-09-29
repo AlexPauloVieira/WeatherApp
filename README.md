@@ -2,8 +2,8 @@
 
 ## Objetivo
 
-Mostrar o tempo de algumas cidades do mundo, através da Api MetaWeather https://www.metaweather.com/api/
-as imagens variam de acordo com a condição climática atual da cidade pesquisada
+Aplicação criada em React Native, com o intuito de mostrar o tempo de algumas cidades do mundo, consumindo dados em tempo real da Api MetaWeather: https://www.metaweather.com/api/ .
+As imagens variam de acordo com a condição climática atual da cidade pesquisada
 
 
 

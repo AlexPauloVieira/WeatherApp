@@ -83,7 +83,7 @@ export default class App extends Component {
                             weather === 'Hail' ? 'Olha a neblina' :
                               weather === 'Heavy Cloud' ? 'Nuvens Pesadas' :
                                 weather === 'Light Cloud' ? 'Nuvenzinhas de leve' :
-                                  weather === 'Heavy Rain' ? 'Que chovona hein?!?' :
+                                  weather === 'Heavy Rain' ? 'Que chuvona hein?!?' :
                                     weather === 'Light Rain' ? 'Olha a garoa!' :
                                       weather === 'Sleet' ? 'Ta chovendo gelo, parça!' :
                                         weather === 'Snow' ? 'Ta nevandooooo!!!' : 'Cuidado com os raios'
