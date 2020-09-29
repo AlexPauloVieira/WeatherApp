@@ -1,74 +1,114 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, ImageBackground, TextInput } from 'react-native';
-import { AppLoading } from 'expo';
-
-import {
-  useFonts,
-  Nunito_400Regular,
-  Lato_400Regular,
-  Inter_900Black,
-  Ranchers_400Regular
-} from '@expo-google-fonts/dev';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, ImageBackground, ActivityIndicator } from 'react-native';
 
 
 import Header from './src/components/Header';
-import background from './src/assets/snow.jpg';
+import SearchInput from './src/components/SearchInput';
 
+import { fetchLocationId, fetchWeather } from './src/utils/api';
+import getImage from './src/utils/getImage';
 
+//import background from './src/assets/snow.jpg';
 
-export default function App() {
-  const [location, setLocation] = useState('Barueri');
-
-  const searchInputHandler = (enteredText) => {
-    setLocation(enteredText);
-  };
-
-
-  let [fontsLoaded] = useFonts({
-    Nunito_400Regular,
-    Lato_400Regular,
-    Inter_900Black,
-    Ranchers_400Regular
-  });
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  } else {
-    return (
-      <>
-        <Header>Weather App</Header>
-        <ImageBackground source={background} style={styles.container} opacity={0.8}>
-
-          <Text style={[styles.largeText, styles.textStyle]}>{location}</Text>
-          <Text style={[styles.smallText, styles.textStyle]}>Parcialmente Nublado</Text>
-          <Text style={[styles.largeText, styles.textStyle]}>20°</Text>
-
-          <TextInput
-            autoCorrect={false}
-            placeholder="Digite a cidade"
-            placeholderTextColor="#fff"
-            style={styles.textInput}
-            onChangeText={searchInputHandler}
-          />
-
-          <StatusBar style="light" backgroundColor='#4b6584' />
-        </ImageBackground>
-      </>
-    );
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+      error: false,
+      location: '',
+      temperature: 0,
+      weather: '',
+    };
   }
 
+  componentDidMount() {
+    this.handleUpdateLocation('São Paulo');
+  }
+
+  handleUpdateLocation = async city => {
+    if (!city) return;
+
+    this.setState({ loading: true }, async () => {
+      try {
+        const locationId = await fetchLocationId(city);
+        const { location, weather, temperature } = await fetchWeather(
+          locationId,
+        );
+
+        this.setState({
+          loading: false,
+          error: false,
+          location,
+          weather,
+          temperature
+        });
+      } catch (e) {
+        this.setState({
+          loading: false,
+          error: true,
+        });
+      }
+    });
+  };
+
+  render() {
+    const { loading, location, error, weather, temperature } = this.state;
+
+    return (
+      <>
+        <Header>Tempo App</Header>
+        <ImageBackground source={getImage(weather)} style={styles.imageContainer}>
+          <View style={styles.componentsContainer}>
+            <ActivityIndicator animating={loading} color='#ffcc00' size='large' />
+
+            {!loading && (
+              <View>
+                {error && (
+                  <Text style={[styles.smallText, styles.textStyle]}>
+                    Não conseguimos carregar o tempo, tente outra cidade por favor!
+                  </Text>
+                )}
+                {!error && (
+                  <View>
+                    <Text style={[styles.largeText, styles.textStyle]}>
+                      {location}
+                    </Text>
+                    <Text style={[styles.smallText, styles.textStyle]}>
+                      {weather}
+                    </Text>
+                    <Text style={[styles.largeText, styles.textStyle]}>
+                      {`${Math.round(temperature)}°`}
+                    </Text>
+                  </View>
+                )}
+
+                <SearchInput
+                  placeholder="Digite a cidade"
+                  onSubmit={this.handleUpdateLocation}
+                />
+              </View>
+            )}
+          </View>
+        </ImageBackground>
+        <StatusBar style="light" backgroundColor='#203e5f' />
+      </>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    resizeMode: 'cover'
+  imageContainer: {
+    flex: 1
+  },
+  componentsContainer: {
+    paddingVertical: 150
   },
   textStyle: {
     textAlign: 'center',
-    fontFamily: 'Nunito_400Regular'
+    fontWeight: 'bold',
+    color: '#ffcc00'
   },
   largeText: {
     fontSize: 44

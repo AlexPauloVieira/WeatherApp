@@ -4,15 +4,15 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: '8%',
-        backgroundColor: '#a55eea',
+        backgroundColor: '#203e5f',
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: 24
     },
     title: {
-        color: '#fff',
+        color: '#ffcc00',
         textTransform: 'uppercase',
-        fontSize: 16
+        fontSize: 20
     }
 });
 
