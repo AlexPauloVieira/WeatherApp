@@ -60,7 +60,7 @@ export default class App extends Component {
     return (
       <>
         <Header>Tempo App</Header>
-        <ImageBackground source={getImage(weather)} style={styles.imageContainer}>
+        <ImageBackground source={getImage(weather)} style={styles.imageContainer} opacity={0.75}>
           <View style={styles.componentsContainer}>
             <ActivityIndicator animating={loading} color='#ffcc00' size='large' />
 
@@ -119,13 +119,13 @@ const styles = StyleSheet.create({
   textStyle: {
     textAlign: 'center',
     fontWeight: 'bold',
-    color: '#ffcc00'
+    color: '#d35400'
   },
   largeText: {
     fontSize: 44
   },
   smallText: {
-    fontSize: 18
+    fontSize: 22
   },
   textInput: {
     backgroundColor: '#666',
